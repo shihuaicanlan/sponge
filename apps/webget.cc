@@ -8,7 +8,22 @@ using namespace std;
 
 void get_URL(const string &host, const string &path) {
     // Your code here.
-
+    //创建TCP套接字
+    TCPSocket sock1;
+    //通过解析主机名和服务名来构造web页面地址
+    const Address adr(host,"http");
+    //连接web页面地址
+    sock1.connect(adr);
+    //写这三个命令,这里特别注意第四命令就是一个换行符
+    sock1.write("GET "+path+" HTTP/1.1\r\nHost: "+host+"\r\nConnection: close\r\n\r\n");
+    //提示说了套接字到达“EOF”（文件结尾）仅调用一次读取是不够的，所以采用while循环
+    do
+    {
+        auto recvd=sock1.read();
+        cout<<recvd;
+    } while (!sock1.eof());
+    sock1.close();
+    
     // You will need to connect to the "http" service on
     // the computer whose name is in the "host" string,
     // then request the URL path given in the "path" string.

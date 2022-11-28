@@ -11,14 +11,16 @@
 class ByteStream {
   private:
     // Your code here -- add private members as necessary.
-
     // Hint: This doesn't need to be a sophisticated data structure at
     // all, but if any of your tests are taking longer than a second,
     // that's a sign that you probably want to keep exploring
     // different approaches.
-
+    std::string buffer;
+    const size_t buffer_max_cnt;//管道最大容量
+    size_t read_cnt;
+    size_t write_cnt;
+    bool _end_input=false;
     bool _error{};  //!< Flag indicating that the stream suffered an error.
-
   public:
     //! Construct a stream with room for `capacity` bytes.
     ByteStream(const size_t capacity);
@@ -30,7 +32,6 @@ class ByteStream {
     //! as will fit, and return how many were written.
     //! \returns the number of bytes accepted into the stream
     size_t write(const std::string &data);
-
     //! \returns the number of additional bytes that the stream has space for
     size_t remaining_capacity() const;
 
