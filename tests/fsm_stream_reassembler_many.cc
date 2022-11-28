@@ -11,9 +11,7 @@
 #include <tuple>
 #include <utility>
 #include <vector>
-
 using namespace std;
-
 static constexpr unsigned NREPS = 32;
 static constexpr unsigned NSEGS = 128;
 static constexpr unsigned MAX_SEG_LEN = 2048;
@@ -63,14 +61,24 @@ int main() {
             const size_t size = 1024;
             string d(size, 0);
             generate(d.begin(), d.end(), [&] { return rd(); });
-
+            // string d="After I got full marks in my math examination, my mother brought me a new cellphone. I love my new cellphone, is a smartphone. The color of it is black. I have downloaded a lot of useful applications on it. Such as English-Chinese dictionary, google map, funny games, and so on. Some people say cell phones will have a negative influence on students. But I don’t agree with this, I think properly using cell phone, can give us lots of benefits. If we have any problem, we can turn to our smartphone for help. It’s very convenient. I will make the most use of my new cellphone. ";
             buf.push_substring(d, 0, false);
             buf.push_substring(d.substr(10), size + 10, false);
-
             auto res1 = read(buf);
+            // auto res1 = read(buf);
             if (buf.stream_out().bytes_written() != size) {
                 throw runtime_error("test 3 - number of RX bytes is incorrect");
             }
+            // string s1="";
+            // for(int i=0;i<1024;i++)
+            // {
+            //     if(res1[i]!=d[i])
+            //     {
+            //         cout<<s1<<endl;
+            //         break;
+            //     }
+            //     s1+=res1[i];
+            // }
             if (!equal(res1.cbegin(), res1.cend(), d.cbegin())) {
                 throw runtime_error("test 3 - content of RX bytes is incorrect");
             }
@@ -82,6 +90,7 @@ int main() {
             if (buf.stream_out().bytes_written() != size + 8) {  // rx bytes
                 throw runtime_error("test 3 - number of RX bytes is incorrect after 2nd read");
             }
+           
             if (!equal(res2.cbegin(), res2.cend(), d.cbegin())) {
                 throw runtime_error("test 3 - content of RX bytes is incorrect after 2nd read");
             }

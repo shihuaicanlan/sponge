@@ -2,7 +2,7 @@
 #define SPONGE_LIBSPONGE_STREAM_REASSEMBLER_HH
 
 #include "byte_stream.hh"
-
+#include<unordered_set>
 #include <cstdint>
 #include <string>
 
@@ -14,7 +14,11 @@ class StreamReassembler {
 
     ByteStream _output;  //!< The reassembled in-order byte stream
     size_t _capacity;    //!< The maximum number of bytes
-
+    size_t predict_index; //期待索引值
+    size_t unassembled_cnt;//未连续但已经放入的字节数
+    std::string datastream; //无限扩充的字符串
+    std::unordered_set<uint64_t> charf;//字符是否存在标志
+    bool _eof;//eof字符是否来过
   public:
     //! \brief Construct a `StreamReassembler` that will store up to `capacity` bytes.
     //! \note This capacity limits both the bytes that have been reassembled,
