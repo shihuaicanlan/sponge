@@ -37,7 +37,7 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
             //新数据没放入过
             if (charf.count(i) == 0) {
                 //动态扩容
-                if (datastream.capacity()<= i) {
+                if (datastream.size()<= i) {
                     datastream.resize(2*i+1);
                 }
                 datastream[i] = data.at(i - index);

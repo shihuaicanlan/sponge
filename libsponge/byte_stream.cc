@@ -12,7 +12,7 @@ void DUMMY_CODE(Targs &&... /* unused */) {}
 
 using namespace std;
 //初始化属性列表
-ByteStream::ByteStream(const size_t capacity):buffer(),buffer_max_cnt(capacity),read_cnt(0),write_cnt(0),_end_input(false){}
+ByteStream::ByteStream(const size_t capacity):buffer(""),buffer_max_cnt(capacity),read_cnt(0),write_cnt(0),_end_input(false){}
 
 size_t ByteStream::write(const string &data) {
     if(_end_input)
